@@ -1,5 +1,5 @@
 import { generateUUID } from '../../utils/functions/common.mjs';
-import { getGameBoard, createGameBoard } from '../../data/games.mjs';
+import { getGameBoard, createGameBoard, getGameBoards } from '../../data/games.mjs';
 
 const getNewGameBoardId = async () => {
     const newGameId = generateUUID();
