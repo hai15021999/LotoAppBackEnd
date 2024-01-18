@@ -13,7 +13,14 @@ const getGameById = async (req) => {
     return result;
 }
 
+const getAllGameBoards = async () => {
+    const result = getGameBoards();
+    return result;
+}
+
+
 export {
     getNewGameBoardId,
     getGameById,
+    getAllGameBoards
 }

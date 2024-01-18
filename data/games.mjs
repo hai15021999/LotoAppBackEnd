@@ -31,6 +31,11 @@ const lotoPaper = [
   },
 ];
 
+const getGameBoards = () => {
+    const result = Array.from(gameBoards, ([_, value]) => (value))
+    return result;
+  };
+
 const getGameBoard = (id) => {
   return gameBoards.get(id);
 };

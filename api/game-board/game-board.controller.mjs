@@ -13,6 +13,14 @@ router
       resJSON(req, res, 400, result);
     }
   })
+  .get("/games", async (req, res) => {
+    const result = await getAllGameBoards(req);
+    if (result) {
+      resJSON(req, res, 200, result);
+    } else {
+      resJSON(req, res, 400, result);
+    }
+  })
   .post("/newGame", async (req, res) => {
     const result = await getNewGameBoardId();
     if (result) {
