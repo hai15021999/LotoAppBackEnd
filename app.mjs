@@ -23,6 +23,7 @@ app.use(express.static(__dirname + "/public"));
 
 app.use("/api/v1/game-board", GameBoardRouter);
 app.use("/api/v1/player", PlayerRouter);
+app.use('/api/v1/ping', PingRouter);
 app.use("/", (req, res) => {
   // Logger.log('error', `[${req.ip}] ${req.method} ${req.originalUrl} 404`);
   res.status(404).json({ message: "Not found" });
