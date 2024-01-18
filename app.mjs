@@ -2,18 +2,13 @@ import express from "express";
 import path from "node:path";
 import { GameBoardRouter } from "./api/game-board/game-board.controller.mjs";
 import { PlayerRouter } from "./api/player/player.controller.mjs";
-import { Server } from "socket.io";
+import { PingRouter } from "./api/ping/ping.controller.mjs";
 
 const __dirname = path.resolve();
 
 const app = express();
-const io = new Server(server);
 
 const MAX_REQUEST_BODY_SIZE = "50mb";
-
-io.on("connection", (socket) => {
-  console.log("a user connected");
-});
 
 app.use(express.json({ limit: MAX_REQUEST_BODY_SIZE }));
 app.use(express.raw({ limit: MAX_REQUEST_BODY_SIZE }));

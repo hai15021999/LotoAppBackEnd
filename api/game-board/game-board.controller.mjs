@@ -1,5 +1,5 @@
 import express from "express";
-import { getNewGameBoardId, getGameById, joinGame, pickPaper } from "./game-board.model.mjs";
+import { getNewGameBoardId, getGameById } from "./game-board.model.mjs";
 import { resJSON } from "../../utils/request/request.mjs";
 
 const router = express.Router();
