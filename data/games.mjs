@@ -114,4 +114,5 @@ export {
   updateGameBoardStatus,
   updateGameBoardRecord,
   updateGameBoardInfo,
+  getGameBoards
 };
