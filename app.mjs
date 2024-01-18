@@ -3,6 +3,9 @@ import path from "node:path";
 import { GameBoardRouter } from "./api/game-board/game-board.controller.mjs";
 import { PlayerRouter } from "./api/player/player.controller.mjs";
 import { PingRouter } from "./api/ping/ping.controller.mjs";
+import cors from 'cors';
+import compression from 'compression';
+import helmet from 'helmet';
 
 const __dirname = path.resolve();
 
@@ -15,6 +18,9 @@ app.use(express.raw({ limit: MAX_REQUEST_BODY_SIZE }));
 app.use(express.text({ limit: MAX_REQUEST_BODY_SIZE }));
 app.use(express.urlencoded({ limit: MAX_REQUEST_BODY_SIZE, extended: true }));
 app.use(express.static(__dirname + "/public"));
+app.use(helmet());
+app.use(cors());
+app.use(compression());
 
 app.use("/api/v1/game-board", GameBoardRouter);
 app.use("/api/v1/player", PlayerRouter);
