@@ -9,23 +9,26 @@ router
     const { playerName, gameId } = req.body;
     const result = await joinGame(playerName, gameId);
     if (result) {
-      resJSON(req, res, 200, result);
+      if (result.status === "success") {
+        resJSON(req, res, 200, result);
+      } else {
+        resJSON(req, res, 400, {
+          message: result.message,
+        });
+      }
     } else {
-      resJSON(req, res, 400, {
-        message: "Cannot join this game.",
-      });
     }
   })
   .post("/pickPaper", async (req, res) => {
-    const { gameId, playerName, paperId } = req.body;
-    const result = await pickPaper(gameId, playerName, paperId);
-    if (result) {
+    const { gameId, playerName, paperIds } = req.body;
+    const result = await pickPaper(gameId, playerName, paperIds);
+    if (result.status === "success") {
       resJSON(req, res, 200, result);
     } else {
       resJSON(req, res, 400, {
-        message: "Cannot pick this paper.",
+        message: result.message,
       });
     }
-  })
+  });
 
 export { router as PlayerRouter };

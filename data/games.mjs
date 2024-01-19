@@ -1,35 +1,6 @@
-let gameBoards = new Map();
+import { lotoPaper } from './papers.mjs'
 
-const lotoPaper = [
-  {
-    id: "greenLeft",
-    value: [
-      [16, 28, 45, 68, 87],
-      [4, 29, 35, 55, 73],
-      [9, 30, 54, 62, 88],
-      [1, 21, 33, 52, 76],
-      [8, 40, 50, 79, 81],
-      [11, 20, 46, 63, 83],
-      [27, 49, 59, 72, 80],
-      [2, 19, 32, 48, 67],
-      [14, 22, 57, 78, 90],
-    ],
-  },
-  {
-    id: "greenRight",
-    value: [
-      [6, 18, 47, 69, 86],
-      [13, 31, 44, 61, 70],
-      [7, 24, 34, 56, 71],
-      [5, 23, 41, 65, 74],
-      [10, 37, 53, 60, 89],
-      [17, 38, 42, 75, 84],
-      [15, 25, 51, 77, 85],
-      [12, 36, 43, 64, 82],
-      [3, 26, 39, 58, 66],
-    ],
-  },
-];
+let gameBoards = new Map();
 
 const getGameBoards = () => {
     const result = Array.from(gameBoards, ([_, value]) => (value))
@@ -37,7 +8,23 @@ const getGameBoards = () => {
   };
 
 const getGameBoard = (id) => {
-  return gameBoards.get(id);
+  const temp = gameBoards.get(id);
+  if (temp) {
+    return {
+      id: temp.id,
+      result: temp.result,
+      status: temp.status,
+      gameInfo: temp.gameInfo,
+      players: Object.keys(temp.players).reduce((acc, cur) => {
+        if (temp.players[cur] && temp.players[cur].isReady) {
+          acc.push(cur);
+        }
+        return acc;
+      }, []),
+      selectedPapers: temp.selectedPapers
+    }
+  }
+  return null;
 };
 
 const getGameBoardRecord = (id) => {
@@ -49,8 +36,9 @@ const createGameBoard = (id) => {
     id: id,
     result: [],
     winner: null,
-    players: [],
+    players: {},
     status: "new",
+    selectedPapers: [],
     gameInfo: {},
   });
   return {
@@ -60,13 +48,35 @@ const createGameBoard = (id) => {
 
 const addGameBoardPlayer = (id, player) => {
   let temp = gameBoards.get(id);
-  if (temp.players.includes(player)) {
+  if (temp.players[player]) {
     return {
       status: "failed",
       message: "Duplicate player",
     };
   }
-  temp.players.push(player);
+  temp.players[player] = {
+    isReady: false,
+    paperIds: []
+  };
+  gameBoards.set(id, temp);
+  return {
+    status: "success",
+  };
+};
+
+const updatePlayerPaper = (id, player, paperIds) => {
+  let temp = gameBoards.get(id);
+  if (temp.selectedPapers.includes(...paperIds)) {
+    return {
+      status: "failed",
+      message: "Tờ đã bị chọn."
+    }
+  }
+  temp.players[player] = {
+    isReady: true,
+    paperIds: paperIds
+  }
+  temp.selectedPapers.push(...paperIds);
   gameBoards.set(id, temp);
   return {
     status: "success",
@@ -114,5 +124,6 @@ export {
   updateGameBoardStatus,
   updateGameBoardRecord,
   updateGameBoardInfo,
-  getGameBoards
+  getGameBoards,
+  updatePlayerPaper
 };
