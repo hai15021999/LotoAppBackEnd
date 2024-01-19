@@ -1,4 +1,5 @@
 import http from "node:http";
+import https from "node:https";
 import { HTTP_PORT, HOSTNAME, NODE_ENV } from "./config/global.mjs";
 import { Logger } from './utils/logger/logger.mjs';
 import { cleanUp } from "./clean-up.mjs";
@@ -7,7 +8,7 @@ import { Server } from 'socket.io';
 import { SocketServer, SocketClients, createSocketServer } from './utils/socket-io/socket-io.mjs';
 
 // HTTP SERVER
-const httpServer = http.createServer(app);
+const httpServer = https.createServer(app);
 
 //Socket
 createSocketServer(httpServer);
