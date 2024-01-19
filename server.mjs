@@ -4,11 +4,14 @@ import { HTTP_PORT, HOSTNAME, NODE_ENV } from "./config/global.mjs";
 import { Logger } from './utils/logger/logger.mjs';
 import { cleanUp } from "./clean-up.mjs";
 import app from "./app.mjs";
-import { Server } from 'socket.io';
 import { SocketServer, SocketClients, createSocketServer } from './utils/socket-io/socket-io.mjs';
 
 // HTTP SERVER
-const httpServer = https.createServer(app);
+const httpServer = https.createServer({
+  key: 'key_abc123',
+  cert: 'cert_abc123',
+  ca: 'ca_abc123'
+}, app);
 
 //Socket
 createSocketServer(httpServer);
