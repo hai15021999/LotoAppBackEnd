@@ -9,8 +9,8 @@ const createSocketServer = (server, transports = ["websocket", "polling"]) => {
   SocketServer = new Server(server, {
     transports: transports,
     cors: {
-      origin: ["https://bingo-loto.vercel.app/", "http://localhost"],
-      credentials: false,
+      origin: "*",
+      credentials: true,
     },
   });
   SocketClients = new Map();
