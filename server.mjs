@@ -7,10 +7,7 @@ import app from "./app.mjs";
 import { SocketServer, SocketClients, createSocketServer } from './utils/socket-io/socket-io.mjs';
 
 // HTTP SERVER
-const httpServer = http.createServer({
-  key: 'key_abc123',
-  cert: 'cert_abc123',
-}, app);
+const httpServer = http.createServer(app);
 
 //Socket
 createSocketServer(httpServer);
