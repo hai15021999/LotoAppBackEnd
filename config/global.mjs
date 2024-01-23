@@ -5,7 +5,7 @@ const VERSION     = '1.0.2';
 const NODE_ENV    = 'dev';
 const API_VERSION = 'v1';
 const HOSTNAME    = 'localhost';
-const HTTP_PORT   = 3200;
+const HTTP_PORT   = 433;
 
 export {
     VERSION,
