@@ -10,15 +10,15 @@ import { SocketServer, SocketClients, createSocketServer } from './utils/socket-
 const httpServer = http.createServer(app);
 
 //Socket
-createSocketServer(httpServer);
-SocketServer.on('connection', socket => {
-  Logger.log('info', `New Socket Client connected with id ${socket.id}`);
-  SocketClients.set(socket.id, socket);
-  socket.on('disconnect', () => {
-    SocketClients.delete(socket.id);
-    Logger.log('info', `Socket Client with id ${socket.id} disconnected`);
-  });
-});
+// createSocketServer(httpServer);
+// SocketServer.on('connection', socket => {
+//   Logger.log('info', `New Socket Client connected with id ${socket.id}`);
+//   SocketClients.set(socket.id, socket);
+//   socket.on('disconnect', () => {
+//     SocketClients.delete(socket.id);
+//     Logger.log('info', `Socket Client with id ${socket.id} disconnected`);
+//   });
+// });
 
 httpServer.once("listening", () => {
   Logger.log('info', `Server listening at http://${HOSTNAME}:${HTTP_PORT} in ${NODE_ENV} environment`);
