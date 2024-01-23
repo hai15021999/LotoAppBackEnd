@@ -1,5 +1,6 @@
-import { generateUUID } from '../../utils/functions/common.mjs';
-import { getGameBoard, createGameBoard, getGameBoards } from '../../data/games.mjs';
+import { generateUUID, getRandomNumer } from '../../utils/functions/common.mjs';
+import { getGameBoard, createGameBoard, getGameBoards, updateGameBoardStatus, updateGameBoardRecord } from '../../data/games.mjs';
+import { emitData } from '../../utils/socket-io/socket-io.mjs'
 
 const getNewGameBoardId = async () => {
     const newGameId = generateUUID();
@@ -18,9 +19,27 @@ const getAllGameBoards = async () => {
     return result;
 }
 
+const startGameBoard = async (req) => {
+    const { gameId } = req.body;
+    const result = updateGameBoardStatus(gameId, 'playing');
+    emitData(`${gameId}`, getGameBoard(gameId));
+    return result;
+}
+
+const getNumber = async (req) => {
+    const { gameId } = req.body;
+    const gameInfo = getGameBoard(gameId);
+    const newNumber = getRandomNumer(gameInfo.result);
+    const result = updateGameBoardRecord(gameId, newNumber);
+    emitData(`${gameId}`, getGameBoard(gameId));
+    return result;
+}
+
 
 export {
     getNewGameBoardId,
     getGameById,
-    getAllGameBoards
+    getAllGameBoards,
+    startGameBoard,
+    getNumber
 }

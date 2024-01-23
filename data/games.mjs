@@ -1,4 +1,4 @@
-import { lotoPaper } from './papers.mjs'
+import { PaperData } from './papers.mjs'
 
 let gameBoards = new Map();
 
@@ -39,7 +39,7 @@ const createGameBoard = (id) => {
     players: {},
     status: "new",
     selectedPapers: [],
-    gameInfo: {},
+    gameInfo: {}
   });
   return {
     status: "success",
@@ -66,6 +66,12 @@ const addGameBoardPlayer = (id, player) => {
 
 const updatePlayerPaper = (id, player, paperIds) => {
   let temp = gameBoards.get(id);
+  if (temp.status === 'playing') {
+    return {
+      status: "failed",
+      message: "Game đã bắt đầu."
+    }
+  }
   if (temp.selectedPapers.includes(...paperIds)) {
     return {
       status: "failed",
@@ -116,6 +122,48 @@ const updateGameBoardInfo = (id, playerName, paperId) => {
   };
 };
 
+const updateGameBoardWinner = (id, playerName) => {
+  let temp = gameBoards.get(id);
+  if (temp.winner) {
+    temp.winner.push(playerName);
+  } else {
+    temp.winner = [playerName];
+  }
+  gameBoards.set(id, temp);
+  return {
+    status: "success",
+  };
+};
+
+const verifyBingo = (id, playerName, paperId, rowBingo) => {
+  let temp = gameBoards.get(id);
+  const paperData = PaperData[paperId];
+
+  const isCorrectPlayerPaper = temp.players[playerName]['paperIds'].includes(paperId);
+
+  const isIncludeCorrectValue = rowBingo.reduce((acc, cur) => {
+    if (!temp.result.includes(cur)) {
+      acc = false;
+    }
+    return acc;
+  }, true);
+
+  const isCorrectRow = paperData.reduce((acc, cur) => {
+    const isFullElement = cur.reduce((acc_cell, cur_cell) => {
+      if (!rowBingo.includes(cur_cell)) {
+        acc_cell = false;
+      }
+      return acc_cell;
+    }, true);
+    if (isFullElement) {
+      acc = true;
+    }
+    return acc;
+  }, false);
+
+  return isIncludeCorrectValue && isCorrectRow && isCorrectPlayerPaper;
+}
+
 export {
   getGameBoard,
   getGameBoardRecord,
@@ -125,5 +173,7 @@ export {
   updateGameBoardRecord,
   updateGameBoardInfo,
   getGameBoards,
-  updatePlayerPaper
+  updatePlayerPaper,
+  verifyBingo,
+  updateGameBoardWinner
 };
