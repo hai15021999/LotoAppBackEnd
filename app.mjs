@@ -9,6 +9,10 @@ import helmet from 'helmet';
 
 const __dirname = path.resolve();
 
+process.on('uncaughtException', function (err) {
+  console.log(err);
+})
+
 const app = express();
 
 const MAX_REQUEST_BODY_SIZE = "50mb";
