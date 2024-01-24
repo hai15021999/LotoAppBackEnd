@@ -35,7 +35,7 @@ const createGameBoard = (id) => {
   gameBoards.set(id, {
     id: id,
     result: [],
-    winner: null,
+    winner: [],
     players: {},
     status: "new",
     selectedPapers: [],
