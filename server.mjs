@@ -21,9 +21,9 @@ const httpServer = http.createServer(app);
 // });
 
 httpServer.once("listening", () => {
-  Logger.log('info', `Server listening at http://${HOSTNAME}:${HTTP_PORT} in ${NODE_ENV} environment`);
+  Logger.log('info', `Server listening at http://${HOSTNAME}:${HTTP_PORT}`);
   console.log(
-    `Server listening at http://${HOSTNAME}:${HTTP_PORT} in ${NODE_ENV} environment`
+    `Server listening at http://${HOSTNAME}:${HTTP_PORT}`
   );
 });
 httpServer.listen({ port: HTTP_PORT, hostname: HOSTNAME });
