@@ -125,10 +125,11 @@ const updateGameBoardInfo = (id, playerName, paperId) => {
 const updateGameBoardWinner = (id, playerName) => {
   let temp = gameBoards.get(id);
   if (temp.winner) {
-    temp.winner.push(playerName);
+    temp['winner'].push(playerName);
   } else {
-    temp.winner = [playerName];
+    temp['winner'] = [playerName];
   }
+  temp.status = 'end';
   gameBoards.set(id, temp);
   return {
     status: "success",
