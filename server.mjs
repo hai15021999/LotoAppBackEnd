@@ -1,6 +1,6 @@
 import http from "node:http";
 import https from "node:https";
-import { HTTP_PORT, HOSTNAME, NODE_ENV } from "./config/global.mjs";
+import { HTTP_PORT, HOSTNAME } from "./config/global.mjs";
 import { Logger } from './utils/logger/logger.mjs';
 import { cleanUp } from "./clean-up.mjs";
 import app from "./app.mjs";
@@ -10,15 +10,15 @@ import { SocketServer, SocketClients, createSocketServer } from './utils/socket-
 const httpsServer = https.createServer(app);
 
 //Socket
-// createSocketServer(httpsServer);
-// SocketServer.on('connection', socket => {
-//   Logger.log('info', `New Socket Client connected with id ${socket.id}`);
-//   SocketClients.set(socket.id, socket);
-//   socket.on('disconnect', () => {
-//     SocketClients.delete(socket.id);
-//     Logger.log('info', `Socket Client with id ${socket.id} disconnected`);
-//   });
-// });
+createSocketServer(httpsServer);
+SocketServer.on('connection', socket => {
+  Logger.log('info', `New Socket Client connected with id ${socket.id}`);
+  SocketClients.set(socket.id, socket);
+  socket.on('disconnect', () => {
+    SocketClients.delete(socket.id);
+    Logger.log('info', `Socket Client with id ${socket.id} disconnected`);
+  });
+});
 
 httpsServer.once("listening", () => {
   Logger.log('info', `Server listening at https://${HOSTNAME}:${HTTP_PORT}`);
