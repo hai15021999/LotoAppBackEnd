@@ -21,7 +21,8 @@ const getGameBoard = (id) => {
         }
         return acc;
       }, []),
-      selectedPapers: temp.selectedPapers
+      selectedPapers: temp.selectedPapers,
+      winner: temp.winner
     }
   }
   return null;
