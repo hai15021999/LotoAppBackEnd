@@ -1,16 +1,16 @@
 import http from "node:http";
 import https from "node:https";
-import { HTTP_PORT, HOSTNAME } from "./config/global.mjs";
+import { HTTP_PORT, HOSTNAME, NODE_ENV } from "./config/global.mjs";
 import { Logger } from './utils/logger/logger.mjs';
 import { cleanUp } from "./clean-up.mjs";
 import app from "./app.mjs";
 import { SocketServer, SocketClients, createSocketServer } from './utils/socket-io/socket-io.mjs';
 
-// HTTPS SERVER
-const httpsServer = https.createServer(app);
+// HTTP SERVER
+const httpServer = http.createServer(app);
 
 //Socket
-createSocketServer(httpsServer);
+createSocketServer(httpServer);
 SocketServer.on('connection', socket => {
   Logger.log('info', `New Socket Client connected with id ${socket.id}`);
   SocketClients.set(socket.id, socket);
@@ -20,13 +20,13 @@ SocketServer.on('connection', socket => {
   });
 });
 
-httpsServer.once("listening", () => {
-  Logger.log('info', `Server listening at https://${HOSTNAME}:${HTTP_PORT}`);
+httpServer.once("listening", () => {
+  Logger.log('info', `Server listening at http://${HOSTNAME}:${HTTP_PORT}`);
   console.log(
-    `Server listening at https://${HOSTNAME}:${HTTP_PORT}`
+    `Server listening at http://${HOSTNAME}:${HTTP_PORT}`
   );
 });
-httpsServer.listen({ port: HTTP_PORT, hostname: HOSTNAME });
+httpServer.listen({ port: HTTP_PORT, hostname: HOSTNAME });
 
 
 
