@@ -1,5 +1,5 @@
 import express from "express";
-import { getNewGameBoardId, getGameById, getAllGameBoards, startGameBoard, getNumber, onFinishGame } from "./game-board.model.mjs";
+import { getNewGameBoardId, getGameById, getAllGameBoards, startGameBoard, getNumber, onFinishGameBoard } from "./game-board.model.mjs";
 import { resJSON } from "../../utils/request/request.mjs";
 
 const router = express.Router();
@@ -51,7 +51,7 @@ router
       });
     }
   }).post("/finish", async (req, res) => {
-    const result = await onFinishGame(req);
+    const result = await onFinishGameBoard(req);
     if (result) {
       resJSON(req, res, 200, result);
     } else {

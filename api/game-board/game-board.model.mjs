@@ -35,7 +35,7 @@ const getNumber = async (req) => {
     return result;
 }
 
-const onFinishGame = async (req) => {
+const onFinishGameBoard = async (req) => {
     const { gameId } = req.body;
     const result = onFinishGame(gameId);
     emitData(`${gameId}`, getGameBoard(gameId));
@@ -47,5 +47,6 @@ export {
     getGameById,
     getAllGameBoards,
     startGameBoard,
-    getNumber
+    getNumber,
+    onFinishGameBoard
 }
