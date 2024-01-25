@@ -137,6 +137,15 @@ const updateGameBoardWinner = (id, playerName) => {
   };
 };
 
+const onFinishGame = (id) => {
+  let temp = gameBoards.get(id);
+  temp['status'] = 'finished';
+  gameBoards.set(id, temp);
+  return {
+    status: "success",
+  };
+};
+
 const verifyBingo = (id, playerName, paperId, rowBingo) => {
   let temp = gameBoards.get(id);
   const paperData = PaperData[paperId];
@@ -177,5 +186,6 @@ export {
   getGameBoards,
   updatePlayerPaper,
   verifyBingo,
-  updateGameBoardWinner
+  updateGameBoardWinner,
+  onFinishGame
 };

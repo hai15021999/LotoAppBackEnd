@@ -1,5 +1,5 @@
 import express from "express";
-import { getNewGameBoardId, getGameById, getAllGameBoards, startGameBoard, getNumber } from "./game-board.model.mjs";
+import { getNewGameBoardId, getGameById, getAllGameBoards, startGameBoard, getNumber, onFinishGame } from "./game-board.model.mjs";
 import { resJSON } from "../../utils/request/request.mjs";
 
 const router = express.Router();
@@ -48,6 +48,15 @@ router
     } else {
       resJSON(req, res, 400, {
         message: "Cannot generate new game.",
+      });
+    }
+  }).post("/finish", async (req, res) => {
+    const result = await onFinishGame(req);
+    if (result) {
+      resJSON(req, res, 200, result);
+    } else {
+      resJSON(req, res, 400, {
+        message: "Cannot finish this game.",
       });
     }
   })
