@@ -32,6 +32,7 @@ const getNumber = async (req) => {
     const newNumber = getRandomNumer(gameInfo.result);
     const result = updateGameBoardRecord(gameId, newNumber);
     emitData(`${gameId}`, getGameBoard(gameId));
+    emitData(`${gameId}_generate_number`, newNumber);
     return result;
 }
 

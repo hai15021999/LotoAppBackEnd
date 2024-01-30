@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-const VERSION     = '1.0.2';
+const VERSION     = '1.0.3';
 const NODE_ENV    = 'dev';
 const API_VERSION = 'v1';
 const HOSTNAME    = '10.1.1.4';
