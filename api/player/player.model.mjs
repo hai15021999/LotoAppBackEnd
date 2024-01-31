@@ -28,9 +28,8 @@ const notifyBingo = async (gameId, playerName, paperId, rowBingo) => {
     const verify = verifyBingo(gameId, playerName, paperId, rowBingo);
     if (verify) {
         const result = updateGameBoardWinner(gameId, playerName);
-        const temp = getGameBoard(gameId);
-        temp['isBingo'] = true;
-        emitData(`${gameId}`, temp);
+        const winners = getGameBoard(gameId).winner;
+        emitData(`${gameId}_winner`, winners);
         return {
             status: 'success'
         }
