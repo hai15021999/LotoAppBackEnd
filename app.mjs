@@ -3,6 +3,7 @@ import path from "node:path";
 import { GameBoardRouter } from "./api/game-board/game-board.controller.mjs";
 import { PlayerRouter } from "./api/player/player.controller.mjs";
 import { PingRouter } from "./api/ping/ping.controller.mjs";
+import { GameManagerRouter } from './api/game-manager/game-manager.controller.mjs';
 import cors from 'cors';
 import compression from 'compression';
 import helmet from 'helmet';
@@ -29,6 +30,7 @@ app.use(compression());
 app.use("/api/v1/game-board", GameBoardRouter);
 app.use("/api/v1/player", PlayerRouter);
 app.use('/api/v1/ping', PingRouter);
+app.use('/api/v1/manager', GameManagerRouter)
 app.use("/", (req, res) => {
   // Logger.log('error', `[${req.ip}] ${req.method} ${req.originalUrl} 404`);
   res.status(404).json({ message: "Not found" });

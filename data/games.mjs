@@ -90,6 +90,23 @@ const updatePlayerPaper = (id, player, paperIds) => {
   };
 };
 
+const removePlayer = (id, player) => {
+  let temp = gameBoards.get(id);
+  if (temp.status === 'playing') {
+    return {
+      status: "failed",
+      message: "Game đã bắt đầu."
+    }
+  }
+  const paperIds = temp.players[player]['paperIds'];
+  temp.players[player]['isRemove'] = true;
+  temp.selectedPapers = temp.selectedPapers.filter((item) => { return !paperIds.includes(item) });
+  gameBoards.set(id, temp);
+  return {
+    status: "success",
+  };
+};
+
 const updateGameBoardStatus = (id, newStatus) => {
   let temp = gameBoards.get(id);
   temp.status = newStatus;
@@ -187,5 +204,6 @@ export {
   updatePlayerPaper,
   verifyBingo,
   updateGameBoardWinner,
-  onFinishGame
+  onFinishGame,
+  removePlayer
 };
