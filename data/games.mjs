@@ -16,12 +16,12 @@ const getGameBoard = (id) => {
       status: temp.status,
       gameInfo: temp.gameInfo,
       players: Object.keys(temp.players).reduce((acc, cur) => {
-        if (temp.players[cur] && temp.players[cur].isReady) {
+        if (temp.players[cur] && temp.players[cur].isReady && temp.players[cur].isRemove !== true) {
           acc.push(cur);
         }
         return acc;
       }, []),
-      selectedPapers: temp.selectedPapers,
+      selectedPapers: temp.selectedPapers, 
       winner: temp.winner
     }
   }

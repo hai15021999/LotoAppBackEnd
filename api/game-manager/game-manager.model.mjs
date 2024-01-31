@@ -1,6 +1,7 @@
 import { createHash } from 'crypto';
 import { Manager } from '../../data/manager.mjs'
 import { removePlayer } from '../../data/games.mjs'
+import { emitData } from '../../utils/socket-io/socket-io.mjs'
 
 const login = async (username, password) => {
     const inputPWD = createHash('sha256').update(password).digest('hex');
