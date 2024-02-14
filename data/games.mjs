@@ -13,7 +13,7 @@ const getGameBoard = (id) => {
   if (temp) {
     return {
       id: temp.id,
-      code: code,
+      code: temp.code,
       result: temp.result,
       status: temp.status,
       gameInfo: temp.gameInfo,
