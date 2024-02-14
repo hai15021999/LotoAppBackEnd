@@ -33,7 +33,7 @@ const generateGameCode = (excludeCodes) => {
 const getRandomNumer = (valuesArr) => {
   const x = Math.floor(Math.random() * 90 + 1);
   if (valuesArr.includes(x)) {
-    return getRandomNumer(result);
+    return getRandomNumer(valuesArr);
   }
   return x;
 };
