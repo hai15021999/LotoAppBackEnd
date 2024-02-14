@@ -178,6 +178,17 @@ const onFinishGame = (id) => {
   };
 };
 
+const onRestartGame = (id) => {
+  let temp = gameBoards.get(id);
+  temp['status'] = 'new';
+  temp['winner'] = [];
+  temp['result'] = [];
+  gameBoards.set(id, temp);
+  return {
+    status: "success",
+  };
+}
+
 const verifyBingo = (id, playerName, paperId, rowBingo) => {
   let temp = gameBoards.get(id);
   const paperData = PaperData[paperId];
@@ -221,5 +232,6 @@ export {
   updateGameBoardWinner,
   onFinishGame,
   removePlayer,
-  getGameBoardByManager
+  getGameBoardByManager,
+  onRestartGame
 };

@@ -1,6 +1,6 @@
 import express from "express";
 import { resJSON } from "../../utils/request/request.mjs";
-import { login, removeGamePlayer } from './game-manager.model.mjs'
+import { login, removeGamePlayer, restartGame } from './game-manager.model.mjs'
 import { getGameBoardByManager } from '../../data/games.mjs';
 const router = express.Router();
 
@@ -33,6 +33,16 @@ router
           });
     } else {
         resJSON(req, res, 200, result);
+    }
+  })
+  .post("/restart", async (req, res) => {
+    const result = await restartGame(req);
+    if (result) {
+      resJSON(req, res, 200, result);
+    } else {
+      resJSON(req, res, 400, {
+        message: "Cannot restart this game.",
+      });
     }
   });
 
