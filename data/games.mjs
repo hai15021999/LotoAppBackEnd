@@ -180,7 +180,7 @@ const onFinishGame = (id) => {
 
 const onRestartGame = (id) => {
   let temp = gameBoards.get(id);
-  temp['status'] = 'new';
+  temp['status'] = 'playing';
   temp['winner'] = [];
   temp['result'] = [];
   gameBoards.set(id, temp);
