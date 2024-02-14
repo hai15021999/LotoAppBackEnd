@@ -1,4 +1,5 @@
-import { PaperData } from './papers.mjs'
+import { PaperData } from './papers.mjs';
+import { generateGameCode } from '../utils/functions/common.mjs'
 
 let gameBoards = new Map();
 
@@ -12,6 +13,7 @@ const getGameBoard = (id) => {
   if (temp) {
     return {
       id: temp.id,
+      code: code,
       result: temp.result,
       status: temp.status,
       gameInfo: temp.gameInfo,
@@ -28,13 +30,25 @@ const getGameBoard = (id) => {
   return null;
 };
 
+const getGameBoardByManager = (id) => {
+  return gameBoards.get(id);
+};
+
 const getGameBoardRecord = (id) => {
   return gameBoards.get(id)?.result ?? [];
 };
 
 const createGameBoard = (id) => {
+  const gameCodes = getGameBoards().reduce((acc, cur) => {
+    if (cur) {
+      acc.push(cur.code);
+    }
+    return acc;
+  }, []);
+  const newGameCode = generateGameCode(gameCodes);
   gameBoards.set(id, {
     id: id,
+    code: newGameCode,
     result: [],
     winner: [],
     players: {},
@@ -205,5 +219,6 @@ export {
   verifyBingo,
   updateGameBoardWinner,
   onFinishGame,
-  removePlayer
+  removePlayer,
+  getGameBoardByManager
 };

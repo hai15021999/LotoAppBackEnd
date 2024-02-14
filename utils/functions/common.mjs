@@ -16,6 +16,20 @@ const generateUUID = () => {
   return uuid;
 };
 
+const generateGameCode = (excludeCodes) => {
+  let d = new Date().getTime();
+  const code = 'xxxxxx'.replace(/[x]/g, (c) => {
+    const r = (d + Math.random() * 10) % 10 | 0;
+    d = Math.floor(d / 10);
+    return r;
+  });
+  if (excludeCodes.includes(code)) {
+    return generateGameCode(excludeCodes);
+  } else {
+    return code;
+  }
+}
+
 const getRandomNumer = (valuesArr) => {
   let result = 0;
   if (valuesArr.length > 0) {
@@ -33,4 +47,4 @@ const getRandomNumer = (valuesArr) => {
   return result;
 };
 
-export { generateUUID, getRandomNumer };
+export { generateUUID, getRandomNumer, generateGameCode };
