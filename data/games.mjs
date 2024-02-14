@@ -58,6 +58,7 @@ const createGameBoard = (id) => {
   });
   return {
     status: "success",
+    gameCode: gameCodes
   };
 };
 

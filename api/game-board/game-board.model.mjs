@@ -4,8 +4,8 @@ import { emitData } from '../../utils/socket-io/socket-io.mjs'
 
 const getNewGameBoardId = async () => {
     const newGameId = generateUUID();
-    createGameBoard(newGameId);
-    return newGameId;
+    const result = createGameBoard(newGameId);
+    return result.gameCode;
 }
 
 const getGameById = async (req) => {
