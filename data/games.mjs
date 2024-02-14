@@ -46,7 +46,7 @@ const createGameBoard = (id) => {
     return acc;
   }, []);
   const newGameCode = generateGameCode(gameCodes);
-  gameBoards.set(id, {
+  gameBoards.set(newGameCode, {
     id: id,
     code: newGameCode,
     result: [],
