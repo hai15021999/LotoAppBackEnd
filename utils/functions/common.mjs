@@ -46,7 +46,7 @@ const getRandomNumer = (valuesArr) => {
     };
   }
   const box = shuffleArray(valuesArr);
-  const number = box[1];
+  const number = box[0];
   box.shift();
   return {
     number: number,
