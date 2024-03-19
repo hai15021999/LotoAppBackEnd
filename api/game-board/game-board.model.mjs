@@ -29,8 +29,8 @@ const startGameBoard = async (req) => {
 const getNumber = async (req) => {
     const { gameId } = req.body;
     const gameInfo = getGameBoard(gameId);
-    const newNumber = getRandomNumer(gameInfo.result);
-    const result = updateGameBoardRecord(gameId, newNumber);
+    const nextResult = getRandomNumer(gameInfo.box);
+    const result = updateGameBoardRecord(gameId, nextResult.number, nextResult.box);
     emitData(`${gameId}`, getGameBoard(gameId));
     emitData(`${gameId}_generate_number`, newNumber);
     return result;

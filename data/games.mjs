@@ -24,7 +24,8 @@ const getGameBoard = (id) => {
         return acc;
       }, []),
       selectedPapers: temp.selectedPapers, 
-      winner: temp.winner
+      winner: temp.winner,
+      box: temp.box
     }
   }
   return null;
@@ -46,6 +47,10 @@ const createGameBoard = (id) => {
     return acc;
   }, []);
   const newGameCode = generateGameCode(gameCodes);
+  const box = [];
+  for (let i = 1; i < 91; i++) {
+    box.push(i);
+  }
   gameBoards.set(newGameCode, {
     id: id,
     code: newGameCode,
@@ -54,7 +59,8 @@ const createGameBoard = (id) => {
     players: {},
     status: "new",
     selectedPapers: [],
-    gameInfo: {}
+    gameInfo: {},
+    box: box
   });
   return {
     status: "success",
@@ -131,9 +137,10 @@ const updateGameBoardStatus = (id, newStatus) => {
   };
 };
 
-const updateGameBoardRecord = (id, newRecord) => {
+const updateGameBoardRecord = (id, nextNumber, newBox) => {
   let temp = gameBoards.get(id);
-  temp.result.push(newRecord);
+  temp.result.push(nextNumber);
+  temp.box = newBox;
   gameBoards.set(id, temp);
   return {
     status: "success",

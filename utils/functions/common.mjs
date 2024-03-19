@@ -30,12 +30,36 @@ const generateGameCode = (excludeCodes) => {
   }
 };
 
-const getRandomNumer = (valuesArr) => {
+const getRandomNumerV1 = (valuesArr) => {
   const x = Math.floor(Math.random() * 90 + 1);
   if (valuesArr.includes(x)) {
     return getRandomNumer(valuesArr);
   }
   return x;
+};
+
+const getRandomNumer = (valuesArr) => {
+  if (valuesArr.length === 0) {
+    return {
+      number: -1,
+      box: [],
+    };
+  }
+  const box = shuffleArray(valuesArr);
+  const number = box[1];
+  box.shift();
+  return {
+    number: number,
+    box: box,
+  };
+};
+
+const shuffleArray = (arr) => {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1)); // Generate a random index from 0 to i
+    [arr[i], arr[j]] = [arr[j], arr[i]]; // Swap elements at i and j indices
+  }
+  return arr;
 };
 
 export { generateUUID, getRandomNumer, generateGameCode };
